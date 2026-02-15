@@ -1,0 +1,3 @@
+[submodule "ai-tracking-frontend"]
+	path = ai-tracking-frontend
+	url = git@github.com:codekesh/ai-tracking-frontend.git
