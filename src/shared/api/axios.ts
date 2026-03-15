@@ -1,5 +1,13 @@
 import axios from "axios";
 
+const attachToken = (config: any) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+};
+
 export const authAPI = axios.create({
   baseURL: "http://localhost:8080",
   withCredentials: true,
@@ -24,3 +32,5 @@ authAPI.interceptors.request.use((config) => {
 
   return config;
 });
+
+trackingAPI.interceptors.request.use(attachToken);
