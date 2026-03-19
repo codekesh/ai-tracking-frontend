@@ -65,7 +65,21 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "tracking/diet",
-    element: <DietPage />,
+    path: "/dashboard",
+    element: (
+      <ProtectedRoute>
+        <DashboardLayout />
+      </ProtectedRoute>
+    ),
+    children: [
+      {
+        index: true,
+        element: <div>Dashboard Home</div>,
+      },
+      {
+        path: "tracking/diet",
+        element: <DietPage />,
+      },
+    ],
   },
 ]);
