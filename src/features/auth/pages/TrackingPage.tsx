@@ -1,55 +1,84 @@
 import { useEffect, useState } from "react";
 import { trackingAPI } from "../../../shared/api/axios";
+import { useNavigate } from "react-router-dom";
 
-interface TrackingEvent {
+interface Tracker {
   id: number;
-  eventType: string;
-  timestamp: string;
+  domain: string;
 }
 
 export default function TrackingPage() {
-  const [events, setEvents] = useState<TrackingEvent[]>([]);
-  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const [modules, setModules] = useState<Tracker[]>([]);
 
   useEffect(() => {
-    const fetchEvents = async () => {
+    async function fetchTrackers() {
       try {
-        const res = await trackingAPI.get("/tracking");
-        setEvents(res.data);
+        const res = await trackingAPI.get("/trackers");
+        setModules(res.data);
       } catch (err) {
         console.error(err);
-      } finally {
-        setLoading(false);
       }
-    };
+    }
 
-    fetchEvents();
+    fetchTrackers();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
+  const handleAddTracker = async () => {
+    const type = prompt("Enter tracker type (e.g. diet, exercise, sleep)");
+
+    if (!type) return;
+
+    await trackingAPI.post("/trackers", {
+      domain: type,
+    });
+
+    // refresh
+    const res = await trackingAPI.get("/trackers");
+    setModules(res.data);
+  };
 
   return (
     <div>
-      <h2>Tracking Events</h2>
+      <h2>Tracking</h2>
 
-      <table border={1} cellPadding={8}>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Event Type</th>
-            <th>Timestamp</th>
-          </tr>
-        </thead>
-        <tbody>
-          {events.map((event) => (
-            <tr key={event.id}>
-              <td>{event.id}</td>
-              <td>{event.eventType}</td>
-              <td>{event.timestamp}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div style={{ display: "flex", gap: "20px" }}>
+        <div
+          onClick={handleAddTracker}
+          style={{
+            width: "150px",
+            height: "150px",
+            border: "2px dashed gray",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: "30px",
+            cursor: "pointer",
+          }}
+        >
+          +
+        </div>
+
+        {modules.map((module) => (
+          <div
+            key={module.id}
+            onClick={() => navigate(`/dashboard/tracking/${module.domain}`)}
+            style={{
+              width: "150px",
+              height: "150px",
+              border: "1px solid black",
+              borderRadius: "10px",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "flex-end",
+              justifyContent: "center",
+              padding: "10px",
+            }}
+          >
+            {module.domain.toUpperCase()}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

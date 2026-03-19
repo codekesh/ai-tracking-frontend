@@ -5,6 +5,7 @@ import ProtectedRoute from "../shared/components/ProtectedRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
 import PublicRoute from "../shared/components/PublicRoute";
 import TrackingPage from "../features/auth/pages/TrackingPage";
+import DietPage from "../features/auth/pages/tracking/diet/DietPage";
 
 export const router = createBrowserRouter([
   {
@@ -37,7 +38,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "tracking",
-        element: <div>Tracking Page</div>,
+        element: <TrackingPage />,
       },
       {
         path: "analytics",
@@ -62,5 +63,9 @@ export const router = createBrowserRouter([
         element: <TrackingPage />,
       },
     ],
+  },
+  {
+    path: "tracking/diet",
+    element: <DietPage />,
   },
 ]);
