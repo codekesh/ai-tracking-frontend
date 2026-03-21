@@ -6,6 +6,7 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import PublicRoute from "../shared/components/PublicRoute";
 import TrackingPage from "../features/auth/pages/TrackingPage";
 import DietPage from "../features/auth/pages/tracking/diet/DietPage";
+import DashboardHome from "../features/dashboard/DashboardHome";
 
 export const router = createBrowserRouter([
   {
@@ -34,7 +35,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <div>Dashboard Home</div>,
+        element: <DashboardHome />,
       },
       {
         path: "tracking",
