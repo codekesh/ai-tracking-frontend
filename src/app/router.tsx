@@ -7,6 +7,7 @@ import PublicRoute from "../shared/components/PublicRoute";
 import TrackingPage from "../features/auth/pages/TrackingPage";
 import DietPage from "../features/auth/pages/tracking/diet/DietPage";
 import DashboardHome from "../features/dashboard/DashboardHome";
+import AnalyticsPage from "../features/analytics/pages/AnalyticsPage";
 
 export const router = createBrowserRouter([
   {
@@ -43,7 +44,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "analytics",
-        element: <div>Analytics Page</div>,
+        element: <AnalyticsPage />,
       },
     ],
   },
