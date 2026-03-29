@@ -11,8 +11,6 @@ export default function LeftSideBar() {
 
   return (
     <>
-      <div className="area"></div>
-
       <nav className="main-menu">
         <ul>
           <li>

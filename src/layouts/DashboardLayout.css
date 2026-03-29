@@ -1,0 +1,12 @@
+.dashboard-layout {
+  min-height: 100vh;
+  background: #f5f7fa;
+}
+
+.dashboard-main {
+  margin-left: 60px; /* sidebar collapsed width */
+  min-height: 100vh;
+  padding: 24px;
+  transition: margin-left 0.15s linear;
+  overflow-x: hidden;
+}

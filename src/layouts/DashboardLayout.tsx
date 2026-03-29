@@ -1,20 +1,13 @@
 import { Outlet } from "react-router-dom";
-import LeftSideBar from "./LeftSideBar"
+import LeftSideBar from "./LeftSideBar";
+import "./DashboardLayout.css";
 
 export default function DashboardLayout() {
   return (
     <div className="dashboard-layout">
       <LeftSideBar />
 
-      <main
-        style={{
-          flex: 1,
-          marginLeft: "60px",
-          padding: "20px",
-          minHeight: "100vh",
-          background: "#f5f7fa",
-        }}
-      >
+      <main className="dashboard-main">
         <Outlet />
       </main>
     </div>
