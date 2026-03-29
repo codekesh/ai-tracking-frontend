@@ -1,16 +1,5 @@
+import type { MealSectionProps } from "../../types";
 import "./MealSection.css";
-
-type MealSectionProps = {
-  title: string;
-  entries: {
-    id: number;
-    foodName: string;
-    calories: number;
-    timestamp: string;
-  }[];
-  isOpen: boolean;
-  onToggle: () => void;
-};
 
 export default function MealSection({
   title,

@@ -3,11 +3,6 @@ import { trackingAPI } from "../../../shared/api/axios";
 import { useNavigate } from "react-router-dom";
 import "./TrackingPage.css";
 
-interface Tracker {
-  id: number;
-  domain: string;
-}
-
 export default function TrackingPage() {
   const navigate = useNavigate();
   const [modules, setModules] = useState<Tracker[]>([]);

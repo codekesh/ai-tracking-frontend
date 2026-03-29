@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { getDietEntries, addDietEntry, type DietEntry } from "./api";
+import { getDietEntries, addDietEntry } from "./api";
 import DietForm from "./DietForm";
 import MealSection from "./MealSection";
-
-export type MealType = "BREAKFAST" | "LUNCH" | "DINNER" | "SNACKS";
+import type { DietEntry } from "../../types";
 
 export default function DietPage() {
   const [entries, setEntries] = useState<DietEntry[]>([]);

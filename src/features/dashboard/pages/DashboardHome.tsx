@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { trackingAPI } from "../../shared/api/axios";
-import UserCard from "./components/UserCard";
-import SummaryCard from "./components/SummaryCard";
-import StreakCard from "./components/StreakCard";
-import AISuggestionsCard from "./components/AISuggestionsCard";
-import type { DashboardResponse } from "./types";
+import { trackingAPI } from "../../../shared/api/axios";
+import UserCard from "../components/UserCard";
+import SummaryCard from "../components/SummaryCard";
+import StreakCard from "../components/StreakCard";
+import AISuggestionsCard from "../components/AISuggestionsCard";
+import type { DashboardResponse } from "../types";
 
 export default function DashboardHome() {
   const [data, setData] = useState<DashboardResponse | null>(null);

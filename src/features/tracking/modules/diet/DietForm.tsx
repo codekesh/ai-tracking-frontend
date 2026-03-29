@@ -1,19 +1,6 @@
 import { useState } from "react";
-import type { MealType } from "./DietPage";
 import "./DietForm.css";
-
-type DietFormProps = {
-  onAdd: (data: {
-    foodName: string;
-    noOfServings: number;
-    servingSize: string;
-    mealType: MealType;
-    calories: number;
-    protein: number;
-    carbs: number;
-    fat: number;
-  }) => void;
-};
+import type { DietFormProps, MealType } from "../../types";
 
 export default function DietForm({ onAdd }: DietFormProps) {
   const [foodName, setFoodName] = useState("");
