@@ -1,6 +1,7 @@
 import { trackingAPI } from "../../../../../shared/api/axios";
 
 export interface DietRequest {
+  mealType: string;
   foodName: string;
   calories: number;
   protein: number;
@@ -9,6 +10,7 @@ export interface DietRequest {
 }
 
 export interface DietEntry {
+  mealType: string;
   id: number;
   foodName: string;
   calories: number;

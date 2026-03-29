@@ -1,82 +1,87 @@
 import { useEffect, useState } from "react";
-import { addDietEntry, getDietEntries, type DietEntry } from "./api";
+import { getDietEntries, addDietEntry, type DietEntry } from "./api";
+import DietForm from "./DietForm";
+import MealSection from "./MealSection";
+
+export type MealType = "BREAKFAST" | "LUNCH" | "DINNER" | "SNACKS";
 
 export default function DietPage() {
-  const [foodName, setFoodName] = useState("");
-  const [calories, setCalories] = useState("");
   const [entries, setEntries] = useState<DietEntry[]>([]);
+  const [openMeal, setOpenMeal] = useState<string | null>(null);
+
+  const fetchEntries = async () => {
+    const res = await getDietEntries();
+    setEntries(res.data);
+  };
 
   useEffect(() => {
-    const fetchEntries = async () => {
-      try {
-        const res = await getDietEntries();
-        setEntries(res.data);
-      } catch (err) {
-        console.error("Failed to fetch entries", err);
-      }
-    };
-
     fetchEntries();
   }, []);
 
-  const handleSubmit = async () => {
-    await addDietEntry({
-      foodName,
-      calories: Number(calories),
-      protein: 0,
-      carbs: 0,
-      fat: 0,
-    });
+  const handleAdd = async (data: any) => {
+    await addDietEntry(data);
+    fetchEntries();
+  };
 
-    setFoodName("");
-    setCalories("");
+  const handleToggle = (meal: string) => {
+    setOpenMeal((prev) => (prev === meal ? null : meal));
+  };
+
+  const grouped = {
+    BREAKFAST: entries.filter((e) => e.mealType === "BREAKFAST"),
+    LUNCH: entries.filter((e) => e.mealType === "LUNCH"),
+    DINNER: entries.filter((e) => e.mealType === "DINNER"),
+    SNACKS: entries.filter((e) => e.mealType === "SNACKS"),
   };
 
   const totalCalories = entries.reduce((sum, e) => sum + (e.calories || 0), 0);
 
   return (
-    <div>
-      <h2>Diet Tracker</h2>
-      <h3>Total Calories: {totalCalories}</h3>
-      <div>
-        <input
-          placeholder="Food name"
-          value={foodName}
-          onChange={(e) => setFoodName(e.target.value)}
-        />
-
-        <input
-          placeholder="Calories"
-          value={calories}
-          onChange={(e) => setCalories(e.target.value)}
-        />
-
-        <button onClick={handleSubmit} disabled={!foodName || !calories}>
-          Add
-        </button>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "flex-start",
+        padding: "10px",
+        gap: "100px",
+      }}
+    >
+      {/* LEFT SIDE */}
+      <div style={{ width: "340px", flexShrink: 0 }}>
+        <DietForm onAdd={handleAdd} />
       </div>
 
-      <h3>Entries</h3>
+      {/* RIGHT SIDE */}
+      <div style={{ flex: 1 }}>
+        <h2>Total Calories: {totalCalories}</h2>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Food</th>
-            <th>Calories</th>
-            <th>Date</th>
-          </tr>
-        </thead>
+        <MealSection
+          title="Breakfast"
+          entries={grouped.BREAKFAST}
+          isOpen={openMeal === "BREAKFAST"}
+          onToggle={() => handleToggle("BREAKFAST")}
+        />
 
-        <tbody>
-          {entries.map((e) => (
-            <tr key={e.id}>
-              <td>{e.foodName}</td>
-              <td>{e.calories}</td>
-              <td>{new Date(e.timestamp).toLocaleString()}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+        <MealSection
+          title="Lunch"
+          entries={grouped.LUNCH}
+          isOpen={openMeal === "LUNCH"}
+          onToggle={() => handleToggle("LUNCH")}
+        />
+
+        <MealSection
+          title="Dinner"
+          entries={grouped.DINNER}
+          isOpen={openMeal === "DINNER"}
+          onToggle={() => handleToggle("DINNER")}
+        />
+
+        <MealSection
+          title="Snacks"
+          entries={grouped.SNACKS}
+          isOpen={openMeal === "SNACKS"}
+          onToggle={() => handleToggle("SNACKS")}
+        />
+      </div>
     </div>
   );
 }
