@@ -1,43 +1,20 @@
-import { Outlet, Link, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import LeftSideBar from "./LeftSideBar"
 
 export default function DashboardLayout() {
-  const navigate = useNavigate();
-
-  const logout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
-
   return (
-    <div style={{ display: "flex", height: "100vh" }}>
-      <aside
+    <div className="dashboard-layout">
+      <LeftSideBar />
+
+      <main
         style={{
-          width: "220px",
-          background: "#222",
-          color: "#fff",
+          flex: 1,
+          marginLeft: "60px",
           padding: "20px",
+          minHeight: "100vh",
+          background: "#f5f7fa",
         }}
       >
-        <h3>AI Platform</h3>
-        <p>
-          <Link to="/dashboard" style={{ color: "white" }}>
-            Dashboard
-          </Link>
-        </p>
-        <p>
-          <Link to="/dashboard/tracking" style={{ color: "white" }}>
-            Tracking
-          </Link>
-        </p>
-        <p>
-          <Link to="/dashboard/analytics" style={{ color: "white" }}>
-            Analytics
-          </Link>
-        </p>
-        <button onClick={logout}>Logout</button>
-      </aside>
-
-      <main style={{ flex: 1, padding: "20px" }}>
         <Outlet />
       </main>
     </div>
