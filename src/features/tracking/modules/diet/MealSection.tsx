@@ -8,7 +8,6 @@ export default function MealSection({
   onToggle,
 }: MealSectionProps) {
   const totalCalories = entries.reduce((sum, e) => sum + (e.calories || 0), 0);
-
   return (
     <div className="meal-section">
       <button className="meal-header" onClick={onToggle}>

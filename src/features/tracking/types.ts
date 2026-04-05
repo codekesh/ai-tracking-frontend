@@ -19,16 +19,18 @@ export interface DietEntry {
 }
 
 export type DietFormProps = {
-  onAdd: (data: {
-    foodName: string;
-    noOfServings: number;
-    servingSize: string;
-    mealType: MealType;
-    calories: number;
-    protein: number;
-    carbs: number;
-    fat: number;
-  }) => void;
+  onAdd: (data: DietEntryInput) => void;
+};
+
+export type DietEntryInput = {
+  foodName: string;
+  noOfServings: number;
+  servingSize: string;
+  mealType: MealType;
+  calories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
 };
 
 export type MealType = "BREAKFAST" | "LUNCH" | "DINNER" | "SNACKS";

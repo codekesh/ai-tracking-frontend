@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getDietEntries, addDietEntry } from "./api";
 import DietForm from "./DietForm";
 import MealSection from "./MealSection";
-import type { DietEntry } from "../../types";
+import type { DietEntry, DietEntryInput } from "../../types";
 
 export default function DietPage() {
   const [entries, setEntries] = useState<DietEntry[]>([]);
@@ -12,12 +12,20 @@ export default function DietPage() {
     const res = await getDietEntries();
     setEntries(res.data);
   };
-
   useEffect(() => {
-    fetchEntries();
+    const loadEntries = async () => {
+      try {
+        const res = await getDietEntries();
+        setEntries(res.data);
+      } catch (error) {
+        console.error("Failed to fetch diet entries:", error);
+      }
+    };
+
+    loadEntries();
   }, []);
 
-  const handleAdd = async (data: any) => {
+  const handleAdd = async (data: DietEntryInput) => {
     await addDietEntry(data);
     fetchEntries();
   };
