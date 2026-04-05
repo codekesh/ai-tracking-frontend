@@ -5,7 +5,12 @@ import "./AuthPage.css";
 
 export default function RegisterPage() {
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [fullName, setFullName] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [message, setMessage] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [loading, setLoading] = useState(false);
@@ -16,11 +21,30 @@ export default function RegisterPage() {
     e.preventDefault();
     setMessage("");
     setErrorMsg("");
+
+    if (
+      !fullName.trim() ||
+      !email.trim() ||
+      !phone.trim() ||
+      !password.trim() ||
+      !confirmPassword.trim()
+    ) {
+      setErrorMsg("Please fill in all fields.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setErrorMsg("Passwords do not match.");
+      return;
+    }
+
     setLoading(true);
 
     try {
       await authAPI.post("/auth/register", {
+        name: fullName,
         email,
+        phone,
         password,
       });
 
@@ -49,6 +73,15 @@ export default function RegisterPage() {
           <input
             required
             className="auth-input"
+            type="text"
+            placeholder="Full Name"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+          />
+
+          <input
+            required
+            className="auth-input"
             type="email"
             placeholder="E-mail"
             value={email}
@@ -58,11 +91,47 @@ export default function RegisterPage() {
           <input
             required
             className="auth-input"
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            type="phone"
+            placeholder="Phone Number"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
           />
+
+          <div className="password-wrapper">
+            <input
+              required
+              className="auth-input password-input"
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button
+              type="button"
+              className="eye-button"
+              onClick={() => setShowPassword((prev) => !prev)}
+            >
+              {showPassword ? "🙈" : "👁"}
+            </button>
+          </div>
+
+          <div className="password-wrapper">
+            <input
+              required
+              className="auth-input password-input"
+              type={showConfirmPassword ? "text" : "password"}
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            <button
+              type="button"
+              className="eye-button"
+              onClick={() => setShowConfirmPassword((prev) => !prev)}
+            >
+              {showConfirmPassword ? "🙈" : "👁"}
+            </button>
+          </div>
 
           <button type="submit" className="auth-button" disabled={loading}>
             {loading ? "Creating Account..." : "Sign Up"}
