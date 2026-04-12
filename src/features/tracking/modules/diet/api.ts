@@ -8,3 +8,7 @@ export const addDietEntry = (data: DietRequest) => {
 export const getDietEntries = () => {
   return trackingAPI.get("/tracking/diet");
 };
+
+export const searchFoods = (query: string) => {
+  return trackingAPI.get(`/foods?search=${query}`);
+};

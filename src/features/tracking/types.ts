@@ -23,9 +23,10 @@ export type DietFormProps = {
 };
 
 export type DietEntryInput = {
+  foodId: number | null;
   foodName: string;
-  noOfServings: number;
-  servingSize: string;
+  numberOfServings: number;
+  servingSize: number;
   mealType: MealType;
   calories: number;
   protein: number;
