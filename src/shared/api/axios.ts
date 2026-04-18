@@ -23,11 +23,6 @@ export const analyticsAPI = axios.create({
   withCredentials: true,
 });
 
-export const askAI = async (question: string) => {
-  const res = await axios.post("/ai/chat", { question });
-  return res.data.answer;
-};
-
 authAPI.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
 
