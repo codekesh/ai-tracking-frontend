@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios, { type InternalAxiosRequestConfig } from "axios";
 
-const attachToken = (config: any) => {
+const attachToken = (config: InternalAxiosRequestConfig) => {
   const token = localStorage.getItem("token");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -22,6 +22,11 @@ export const analyticsAPI = axios.create({
   baseURL: "http://localhost:8082",
   withCredentials: true,
 });
+
+export const askAI = async (question: string) => {
+  const res = await axios.post("/ai/chat", { question });
+  return res.data.answer;
+};
 
 authAPI.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");

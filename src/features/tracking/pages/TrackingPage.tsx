@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { trackingAPI } from "../../../shared/api/axios";
 import { useNavigate } from "react-router-dom";
 import "./TrackingPage.css";
+import type { Tracker } from "../types";
 
 export default function TrackingPage() {
   const navigate = useNavigate();

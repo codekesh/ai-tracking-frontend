@@ -8,6 +8,7 @@ import TrackingPage from "../features/tracking/pages/TrackingPage";
 import DietPage from "../features/tracking/modules/diet/DietPage";
 import DashboardHome from "../features/dashboard/pages/DashboardHome";
 import AnalyticsPage from "../features/analytics/pages/AnalyticsPage";
+import AIChatPage from "../features/aichat/pages/AIChatPage";
 
 export const router = createBrowserRouter([
   {
@@ -81,6 +82,24 @@ export const router = createBrowserRouter([
       {
         path: "tracking/diet",
         element: <DietPage />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <ProtectedRoute>
+        <DashboardLayout />
+      </ProtectedRoute>
+    ),
+    children: [
+      {
+        index: true,
+        element: <div>Dashboard Home</div>,
+      },
+      {
+        path: "ai",
+        element: <AIChatPage />,
       },
     ],
   },

@@ -15,7 +15,6 @@ export default function AnalyticsPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("Fetching analytics data...");
         const res = await getAnalyticsData();
         setData(res.data);
       } catch (err) {

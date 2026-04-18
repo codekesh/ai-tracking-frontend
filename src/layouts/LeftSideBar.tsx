@@ -33,6 +33,12 @@ export default function LeftSideBar() {
               <span className="nav-text">Analytics</span>
             </Link>
           </li>
+          <li className="has-subnav">
+            <Link to="/dashboard/ai">
+              <i className="fa fa-magic fa-2x"></i>
+              <span className="nav-text">AI Insights</span>
+            </Link>
+          </li>
         </ul>
 
         <ul className="logout">
