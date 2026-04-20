@@ -23,6 +23,11 @@ export const analyticsAPI = axios.create({
   withCredentials: true,
 });
 
+export const aiChatAPI = axios.create({
+  baseURL: "http://localhost:8083",
+  withCredentials: true,
+});
+
 authAPI.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
 
@@ -34,4 +39,5 @@ authAPI.interceptors.request.use((config) => {
 });
 
 trackingAPI.interceptors.request.use(attachToken);
+analyticsAPI.interceptors.request.use(attachToken);
 analyticsAPI.interceptors.request.use(attachToken);
