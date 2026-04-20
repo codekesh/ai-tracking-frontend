@@ -35,7 +35,13 @@ export default function AIChatPage() {
         {messages.map((msg, idx) => (
           <ChatMessage key={idx} message={msg.text} isUser={msg.isUser} />
         ))}
-        {loading && <div className="message ai">Thinking...</div>}
+        {loading && (
+          <div className="message ai typing">
+            <span>.</span>
+            <span>.</span>
+            <span>.</span>
+          </div>
+        )}
       </div>
 
       <div className="input-box">
@@ -43,8 +49,15 @@ export default function AIChatPage() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Ask about your diet..."
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && !loading) {
+              sendMessage();
+            }
+          }}
         />
-        <button onClick={sendMessage}>Send</button>
+        <button onClick={sendMessage} disabled={loading}>
+          Send
+        </button>
       </div>
     </div>
   );
