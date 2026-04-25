@@ -9,22 +9,22 @@ const attachToken = (config: InternalAxiosRequestConfig) => {
 };
 
 export const authAPI = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: import.meta.env.VITE_AUTH_API_URL,
   withCredentials: true,
 });
 
 export const trackingAPI = axios.create({
-  baseURL: "http://localhost:8081",
+  baseURL: import.meta.env.VITE_TRACKING_API_URL,
   withCredentials: true,
 });
 
 export const analyticsAPI = axios.create({
-  baseURL: "http://localhost:8082",
+  baseURL: import.meta.env.VITE_ANALYTICS_API_URL,
   withCredentials: true,
 });
 
 export const aiChatAPI = axios.create({
-  baseURL: "http://localhost:8083",
+  baseURL: import.meta.env.VITE_AI_CHAT_API_URL,
   withCredentials: true,
 });
 
