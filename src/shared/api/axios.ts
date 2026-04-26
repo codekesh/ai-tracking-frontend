@@ -8,36 +8,25 @@ const attachToken = (config: InternalAxiosRequestConfig) => {
   return config;
 };
 
+const API = import.meta.env.VITE_API_URL;
+
 export const authAPI = axios.create({
-  baseURL: import.meta.env.VITE_AUTH_API_URL,
-  withCredentials: true,
+  baseURL: API,
 });
 
 export const trackingAPI = axios.create({
-  baseURL: import.meta.env.VITE_TRACKING_API_URL,
-  withCredentials: true,
+  baseURL: API,
 });
 
 export const analyticsAPI = axios.create({
-  baseURL: import.meta.env.VITE_ANALYTICS_API_URL,
-  withCredentials: true,
+  baseURL: API,
 });
 
 export const aiChatAPI = axios.create({
-  baseURL: import.meta.env.VITE_AI_CHAT_API_URL,
-  withCredentials: true,
+  baseURL: API,
 });
 
-authAPI.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-
-  return config;
-});
-
+authAPI.interceptors.request.use(attachToken);
 trackingAPI.interceptors.request.use(attachToken);
 analyticsAPI.interceptors.request.use(attachToken);
-analyticsAPI.interceptors.request.use(attachToken);
+aiChatAPI.interceptors.request.use(attachToken);
